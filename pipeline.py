@@ -3,10 +3,10 @@ import os, csv
 from typing import List, Tuple
 
 BASE_DIR = os.path.dirname(__file__)
-DATA_DIR = os.path.join(BASE_DIR, "sample")
+DATA_DIR = os.path.join(BASE_DIR, "data")
 SRC_DIR = os.path.join(BASE_DIR, "src")
-#PROMPT_PATH = os.path.join(SRC_DIR, "prompt.txt")
-PROMPT_PATH = os.path.join(BASE_DIR, "tests", "prompts", "prompt8.txt")
+PROMPT_PATH = os.path.join(SRC_DIR, "prompt.txt")
+#PROMPT_PATH = os.path.join(BASE_DIR, "tests", "prompts", "prompt8.txt")
 CSV_OUT = os.path.join(BASE_DIR, "results.csv")
 
 AUDIO_DIRS: List[Tuple[str, int]] = [

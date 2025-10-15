@@ -25,7 +25,7 @@ noharm-ai/
 
 ## 🧠 Model Setup
 Before running the project, create a folder named `models/` in the root directory and place the quantized model file `Llama-3.2-3B-Instruct-Q4_K_M.gguf` inside it.  
-You can download the model from [TheBloke's Hugging Face repository](https://huggingface.co/TheBloke/Llama-3.2-3B-Instruct-GGUF).  
+You can download the model from [The Hugging Face repository](https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/blob/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf).  
 This model is required for text classification and is not automatically downloaded.
 
 ## ⚙️ Running the Pipeline

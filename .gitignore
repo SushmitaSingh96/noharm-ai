@@ -43,6 +43,7 @@ config.yaml
 .cache
 helmit/
 models/
+data/
 node_modules/
 sample/
 tests/
@@ -57,3 +58,4 @@ provider.py
 STT.ipynb
 test.py
 temp_audio/
+Dockerfile

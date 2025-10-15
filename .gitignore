@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs and local data
+*.log
+*.csv
+*.sqlite3
+.DS_Store
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+
+# OS-specific
+Thumbs.db
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# Local config or secrets
+config.yaml
+.env.local
+
+
+.cache
+helmit/
+models/
+node_modules/
+sample/
+tests/
+audioTasksCategory.md 
+extra.py
+*.pdf
+old_classification.py
+Overview.md
+package-lock.json
+package.json
+provider.py
+STT.ipynb
+test.py
+temp_audio/

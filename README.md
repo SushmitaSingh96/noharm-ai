@@ -1,10 +1,10 @@
-# Helmit: Speech Harm Classification Pipeline
+# Speech Harm Classification Pipeline
 
-Helmit is a local, privacy-preserving pipeline for detecting and classifying harmful content in audio conversations. It features two main modules: audio transcription and harm classification, both located in the `src/` directory.
+This repository contains a local, privacy-preserving pipeline for detecting and classifying harmful content in audio conversations. It features two main modules: audio transcription and harm classification, both located in the `src/` directory.
 
 ## 📂 Project Structure
 ```
-Helmit/
+noharm-ai/
 │
 ├── src/
 │   ├── transcript.py       # Converts audio clips to text using Faster Whisper

@@ -1,4 +1,4 @@
-import os, json, psutil, re
+import os, json, psutil, re, time
 from contextlib import redirect_stderr
 from llama_cpp import Llama
 
@@ -16,7 +16,7 @@ def call_api(prompt, options, context):
     transcript = context.get("vars", {}).get("transcript", "")
 
     try:
-        reason = label_conversation(structured_transcript=transcript, summary_prompt=prompt)
+        label, reason, raw_response = label_conversation(structured_transcript=transcript, summary_prompt=prompt)
         # Wrap in the 'output' field as required by Promptfoo. JSON-encode dicts.
         return {"output": json.dumps({"response": reason}, ensure_ascii=False)}
     except Exception as e:
@@ -45,12 +45,20 @@ def label_conversation(structured_transcript, summary_prompt):
             verbose=False
         )
 
-    to_summarise = f"{summary_prompt}\n\n Now summarise the conversation :\n{structured_transcript}"
-    summary_out = llm(to_summarise, max_tokens=128, temperature=0.5)
+    to_summarise = f"{summary_prompt}\n\n ### Conversation:\n<<CONVERSATION>>{structured_transcript}<</CONVERSATION>>"
+    start = time.time()
+    summary_out = llm(to_summarise, max_tokens=64, temperature=0.5)
+    latency = time.time() - start
+    #summary_out = llm(to_summarise, max_tokens=64, temperature=0.3)
     raw_response = summary_out['choices'][0]['text'].strip()
     label, reason = extract_label_reason(raw_response)
     llm.reset() 
-    return label, reason
+    # Save latency to a text file inside 'metrics' folder
+    os.makedirs("metrics", exist_ok=True)
+    minutes, seconds = divmod(latency, 60)
+    with open(os.path.join("metrics", "latency.txt"), "a") as f:
+        f.write(f"Latency: {latency:.4f}s  (~{int(minutes)}m {seconds:.2f}s)\n")
+    return label, reason, raw_response
 
 def extract_label_reason(response):
     """Parse model output to extract harm label and reason.

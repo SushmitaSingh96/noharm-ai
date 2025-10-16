@@ -7,7 +7,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 SRC_DIR = os.path.join(BASE_DIR, "src")
 PROMPT_PATH = os.path.join(SRC_DIR, "prompt.txt")
 #PROMPT_PATH = os.path.join(BASE_DIR, "tests", "prompts", "prompt8.txt")
-CSV_OUT = os.path.join(BASE_DIR, "results.csv")
+CSV_OUT = os.path.join(BASE_DIR, "metrics", "results.csv")
 
 AUDIO_DIRS: List[Tuple[str, int]] = [
     (os.path.join(DATA_DIR, "harmful"), 1),
@@ -45,7 +45,7 @@ def evaluate():
                 structured = stt(path)
 
                 # 2) LLM classifier
-                label, reason = label_conversation(structured, _prompt_text)
+                label, reason, _ = label_conversation(structured, _prompt_text)
                 y_pred = 1 if label == 1 else 0
 
                 writer.writerow([path, y_true, y_pred, reason])
@@ -67,6 +67,16 @@ def evaluate():
     print(f"Precision: {precision:.4f}")
     print(f"Recall:    {recall:.4f}")
     print(f"F1:        {f1:.4f}")
+
+    # --- save metrics to text file ---
+    os.makedirs("metrics", exist_ok=True)
+    with open(os.path.join("metrics", "metrics.txt"), "a", encoding="utf-8") as f:
+        f.write("\n=== Evaluation Summary ===\n")
+        f.write(f"Precision: {precision:.4f}\n")
+        f.write(f"Recall:    {recall:.4f}\n")
+        f.write(f"F1-score:  {f1:.4f}\n")
+    print("Saved metrics summary to metrics/metrics.txt")
+
     print(f"\nSaved: {CSV_OUT}")
 
 if __name__ == "__main__":

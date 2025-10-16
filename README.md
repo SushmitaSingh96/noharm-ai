@@ -1,6 +1,6 @@
 # Speech Harm Classification Pipeline
 
-This repository contains a local, privacy-preserving pipeline for detecting and classifying harmful content in audio conversations. It features two main modules: audio transcription and harm classification, both located in the `src/` directory.
+This repository contains a local, privacy-preserving pipeline for detecting and classifying harmful content in audio conversations. It features two main modules: audio transcription and harm classification, both located in the `src/` directory. Evaluation results (Precision, Recall, F1, and latency) are saved in the `metrics/metrics.txt` file inside the `metrics/` folder. 
 
 ## 📂 Project Structure
 ```
@@ -13,6 +13,7 @@ noharm-ai/
 ├── pipeline.py             # Evaluates model performance (Precision, Recall, F1)
 ├── ui_app.py               # Streamlit interface for testing new audio samples
 ├── data/                   # Folder for evaluation audio files (harmful/safe)
+├── metrics/                # Contains evaluation results stored in metrics.txt
 ├── models/
 └── README.md
 ```
@@ -37,6 +38,7 @@ This model is required for text classification and is not automatically download
    └── safe/      # Non-harmful audio samples
    ```
 2. Run the evaluation script:
+
    ```bash
    python pipeline.py
    ```

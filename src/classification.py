@@ -1,6 +1,17 @@
 import os, json, psutil, re, time
 from contextlib import redirect_stderr
-from llama_cpp import Llama
+from llama_cpp import Llama, LlamaGrammar
+
+# A minimal JSON grammar: {"label": 0 or 1, "reason": "..."}
+json_grammar_text = r"""
+root ::= object
+object ::= "{" ws "\"label\"" ws ":" ws label ws "," ws "\"reason\"" ws ":" ws string ws "}"
+label ::= "0" | "1"
+string ::= "\"" chars "\""
+chars ::= char*
+char ::= [^"\\] | "\\" ["\\/bfnrt]
+ws ::= [ \t\n\r]*
+"""
 
 def call_api(prompt, options, context):
     """Run harm classification via `label_conversation` and return results for Promptfoo.
@@ -35,6 +46,7 @@ def label_conversation(structured_transcript, summary_prompt):
     available_gb = psutil.virtual_memory().available / (1024**3)
     ctx = 2048 if available_gb > 8 else 1024 if available_gb > 4 else 512
 
+    grammar = LlamaGrammar.from_string(json_grammar_text)
     null = open(os.devnull, "w")
     with redirect_stderr(null):
         llm = Llama(
@@ -42,6 +54,7 @@ def label_conversation(structured_transcript, summary_prompt):
             n_ctx=ctx,
             n_threads=4,
             n_gpu_layers=0,
+            grammar=grammar,
             verbose=False
         )
 

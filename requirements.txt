@@ -2,3 +2,4 @@ llama-cpp-python==0.3.16
 faster-whisper==1.2.0
 psutil==7.1.0
 gradio==4.44.1
+streamlit==1.50.0

@@ -19,5 +19,5 @@ if audio_file is not None:
         f.write(audio_file.getbuffer())
 
     transcript = stt(str(temp_path))
-    label, reason = label_conversation(transcript, summary_prompt)
-    st.json({"label": int(label), "reason": reason})
+    label, reason, raw = label_conversation(transcript, summary_prompt)
+    st.json({"label": int(label), "reason": reason, "raw[DEBUG}]": raw})
